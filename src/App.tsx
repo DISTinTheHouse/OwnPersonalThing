@@ -1,9 +1,66 @@
+import React, { useEffect, useRef, useState } from 'react';
 import Lightning from './components/Lightning';
 import { Button } from '@/components/ui/button';
 import { Disc3, Waves, Activity, Share2 } from 'lucide-react';
 import { StaggeredMenu } from '@/components/StaggeredMenu';
 
+type SectionWrapperProps = {
+  id?: string;
+  className?: string;
+  children: React.ReactNode;
+};
+
+function SectionWrapper({ id, className, children }: SectionWrapperProps) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id={id} className={className}>
+      <div
+        ref={ref}
+        className={`transform transition-all duration-700 ease-out ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
+        {children}
+      </div>
+    </section>
+  );
+}
+
 function App() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const cards = [
     {
       title: 'Featured track',
@@ -37,6 +94,11 @@ function App() {
 
   return (
     <main className="w-full min-h-screen">
+      <div
+        className={`fixed inset-x-0 top-0 z-30 h-16 md:h-20 transition-colors duration-300 pointer-events-none ${
+          scrolled ? 'bg-black/70 backdrop-blur-md border-b border-white/10' : 'bg-transparent border-b border-transparent'
+        }`}
+      />
       <StaggeredMenu
         position="right"
         className="font-sans"
@@ -104,9 +166,9 @@ function App() {
         {/* Navbar ahora se maneja con StaggeredMenu (overlay fijo) */}
       </section>
 
-      <section id="featured" className="relative bg-black text-white">
-        <div className="max-w-3xl mx-auto px-4 py-24">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 font-bruno">
+      <SectionWrapper id="featured" className="relative bg-black text-white">
+        <div className="max-w-3xl mx-auto px-4 py-28 md:py-32">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-10 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
             Featured track
           </h2>
           <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
@@ -122,10 +184,10 @@ function App() {
             />
           </div>
         </div>
-      </section>
+      </SectionWrapper>
 
-      <section id="explore" className="relative bg-black text-white">
-          <div className="max-w-6xl mx-auto px-4 py-24">
+      <SectionWrapper id="explore" className="relative bg-black text-white">
+          <div className="max-w-6xl mx-auto px-4 py-28 md:py-32">
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {cards.map(({ title, description, href, Icon, accent }) => (
@@ -162,11 +224,11 @@ function App() {
             ))}
           </div>
         </div>
-      </section>
+      </SectionWrapper>
 
-      <section id="culture" className="py-24 bg-black text-white">
+      <SectionWrapper id="culture" className="py-28 md:py-32 bg-black text-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h3 className="text-3xl md:text-4xl font-semibold mb-8 font-bruno">
+          <h3 className="text-3xl md:text-4xl font-semibold mb-10 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
             DIST culture
           </h3>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -185,10 +247,10 @@ function App() {
             ))}
           </div>
         </div>
-      </section>
-      <section id="music" className="py-24 bg-black text-white">
+      </SectionWrapper>
+      <SectionWrapper id="music" className="py-28 md:py-32 bg-black text-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h3 className="text-3xl md:text-4xl font-semibold mb-8 font-bruno">
+          <h3 className="text-3xl md:text-4xl font-semibold mb-10 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
             Releases
           </h3>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -218,11 +280,11 @@ function App() {
             ))}
           </div>
         </div>
-      </section>
-      <section id="about" className="py-24 bg-black text-white">
+      </SectionWrapper>
+      <SectionWrapper id="about" className="py-28 md:py-32 bg-black text-white">
         <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-4">
-            <h3 className="text-3xl md:text-4xl font-semibold font-bruno">
+            <h3 className="text-3xl md:text-4xl font-semibold font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
               About DIST
             </h3>
             <p className="text-gray-300">
@@ -234,7 +296,7 @@ function App() {
           </div>
           <div className="h-56 md:h-72 rounded-3xl border border-white/10 bg-gradient-to-br from-purple-600/20 to-blue-500/10" />
         </div>
-      </section>
+      </SectionWrapper>
 
       <div className="bg-black pt-20 px-4">
         <footer
@@ -346,7 +408,9 @@ function App() {
 
             <div className="lg:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 lg:gap-28 items-start">
               <div>
-                <h3 className="font-medium text-sm mb-4 font-bruno">Project</h3>
+                <h3 className="font-medium text-sm mb-4 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-300">
+                  Project
+                </h3>
                 <ul className="space-y-3 text-sm text-neutral-300">
                   <li>
                     <a href="#" className="hover:text-neutral-400">
@@ -367,7 +431,9 @@ function App() {
               </div>
 
               <div>
-                <h3 className="font-medium text-sm mb-4 font-bruno">Music & content</h3>
+                <h3 className="font-medium text-sm mb-4 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-300">
+                  Music & content
+                </h3>
                 <ul className="space-y-3 text-sm text-neutral-300">
                   <li>
                     <a href="#" className="hover:text-neutral-400">
@@ -398,7 +464,9 @@ function App() {
               </div>
 
               <div className="col-span-2 md:col-span-1">
-                <h3 className="font-medium text-sm mb-4 font-bruno">DIST</h3>
+                <h3 className="font-medium text-sm mb-4 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-300">
+                  DIST
+                </h3>
                 <ul className="space-y-3 text-sm text-neutral-300">
                   <li>
                     <a href="#" className="hover:text-neutral-400">

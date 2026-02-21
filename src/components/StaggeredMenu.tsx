@@ -128,7 +128,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const panelStart = Number(gsap.getProperty(panel, 'xPercent'));
 
     if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
-    if (numberEls.length) gsap.set(numberEls, { ['--sm-num-opacity' as any]: 0 });
+    if (numberEls.length) gsap.set(numberEls, { '--sm-num-opacity': 0 } as gsap.TweenVars);
     if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
     if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
 
@@ -162,7 +162,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       if (numberEls.length) {
         tl.to(
           numberEls,
-          { duration: 0.6, ease: 'power2.out', ['--sm-num-opacity' as any]: 1, stagger: { each: 0.08, from: 'start' } },
+          {
+            duration: 0.6,
+            ease: 'power2.out',
+            '--sm-num-opacity': 1
+          } as gsap.TweenVars,
           itemsStart + 0.1
         );
       }
@@ -192,7 +196,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
     openTlRef.current = tl;
     return tl;
-  }, [position]);
+  }, []);
 
   const playOpen = useCallback(() => {
     if (busyRef.current) return;
@@ -234,7 +238,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         const numberEls = Array.from(
           panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item')
         ) as HTMLElement[];
-        if (numberEls.length) gsap.set(numberEls, { ['--sm-num-opacity' as any]: 0 });
+        if (numberEls.length) gsap.set(numberEls, { '--sm-num-opacity': 0 } as gsap.TweenVars);
 
         const socialTitle = panel.querySelector('.sm-socials-title') as HTMLElement | null;
         const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link')) as HTMLElement[];
@@ -389,7 +393,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           (className ? className + ' ' : '') +
           'staggered-menu-wrapper pointer-events-none relative w-full h-16 md:h-20 z-40'
         }
-        style={accentColor ? ({ ['--sm-accent' as any]: accentColor } as React.CSSProperties) : undefined}
+        style={accentColor ? ({ '--sm-accent': accentColor } as React.CSSProperties) : undefined}
         data-position={position}
         data-open={open || undefined}
       >
@@ -400,7 +404,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         >
           {(() => {
             const raw = colors && colors.length ? colors.slice(0, 4) : ['#1e1e22', '#35353c'];
-            let arr = [...raw];
+            const arr = [...raw];
             if (arr.length >= 3) {
               const mid = Math.floor(arr.length / 2);
               arr.splice(mid, 1);

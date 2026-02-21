@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Lightning from './components/Lightning';
 import { Button } from '@/components/ui/button';
-import { Disc3, Waves, Activity, Share2 } from 'lucide-react';
 import { StaggeredMenu } from '@/components/StaggeredMenu';
 
 type SectionWrapperProps = {
@@ -61,37 +60,6 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const cards = [
-    {
-      title: 'Featured track',
-      description: 'DIST 003 — OUT NOW. Designed for massive systems.',
-      href: '#featured',
-      Icon: Disc3,
-      accent: 'from-emerald-500/20 to-emerald-500/10',
-    },
-    {
-      title: 'Music',
-      description: 'Explore releases by cover, name, and genre.',
-      href: '#music',
-      Icon: Waves,
-      accent: 'from-blue-500/20 to-blue-500/10',
-    },
-    {
-      title: 'Culture',
-      description: 'Quotes and influences that shape DIST’s energy.',
-      href: '#culture',
-      Icon: Activity,
-      accent: 'from-purple-500/20 to-purple-500/10',
-    },
-    {
-      title: 'About & Contact',
-      description: 'Short story and ways to connect with DIST.',
-      href: '#about',
-      Icon: Share2,
-      accent: 'from-amber-500/20 to-amber-500/10',
-    },
-  ];
-
   return (
     <main className="w-full min-h-screen">
       <div
@@ -104,7 +72,7 @@ function App() {
         className="font-sans"
         items={[
           { label: 'Home', ariaLabel: 'Back to top', link: '/' },
-          { label: 'Music', ariaLabel: 'Go to music grid', link: '#music' },
+          { label: 'Music', ariaLabel: 'Go to featured track', link: '#featured' },
           { label: 'Culture', ariaLabel: 'Go to culture feed', link: '#culture' },
           { label: 'About', ariaLabel: 'About DIST', link: '#about' },
           { label: 'Contact', ariaLabel: 'Contact', link: '#contact' }
@@ -123,8 +91,6 @@ function App() {
         logoUrl="/vite.svg"
         accentColor="#5227FF"
         isFixed={true}
-        onMenuOpen={() => console.log('Menu opened')}
-        onMenuClose={() => console.log('Menu closed')}
       />
       <section className="relative w-full min-h-screen overflow-hidden bg-black text-white flex items-center pt-24">
         <div className="absolute inset-0 w-full h-full">
@@ -186,49 +152,9 @@ function App() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper id="explore" className="relative bg-black text-white">
-          <div className="max-w-6xl mx-auto px-4 py-28 md:py-32">
-
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {cards.map(({ title, description, href, Icon, accent }) => (
-              <a
-                key={title}
-                href={href}
-                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/5 to-white/[0.02] backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.7)] hover:shadow-[0_24px_70px_rgba(0,0,0,0.9)] transition-all duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 p-8 min-h-[260px]"
-              >
-                <div className="pointer-events-none absolute inset-px rounded-[1.4rem] bg-gradient-to-b from-white/8 via-white/2 to-transparent opacity-70 group-hover:opacity-100 transition-opacity" />
-                <div className="relative flex flex-col h-full">
-                  <div className={`h-24 w-full rounded-2xl bg-gradient-to-br ${accent} mb-6`} />
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="p-2.5 rounded-2xl bg-black/60 border border-white/10 text-white shadow-lg">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <h3 className="text-xl font-semibold tracking-tight">{title}</h3>
-                  </div>
-                  <p className="text-sm md:text-base text-gray-300 leading-relaxed mb-4 flex-1">
-                  {description}
-                  </p>
-                  <span className="inline-flex items-center gap-2 text-sm font-medium text-violet-300 group-hover:text-violet-100">
-                    Open section
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                    >
-                      <path d="M7 17L17 7M9 7H17V15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </SectionWrapper>
-
       <SectionWrapper id="culture" className="py-28 md:py-32 bg-black text-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h3 className="text-3xl md:text-4xl font-semibold mb-10 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
+          <h3 className="text-4xl md:text-5xl font-bold text-center mb-10 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
             DIST culture
           </h3>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -243,39 +169,6 @@ function App() {
               >
                 <p className="text-lg font-medium leading-relaxed">{it.q}</p>
                 <p className="text-sm text-gray-300 mt-3">{it.s}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </SectionWrapper>
-      <SectionWrapper id="music" className="py-28 md:py-32 bg-black text-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h3 className="text-3xl md:text-4xl font-semibold mb-10 font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
-            Releases
-          </h3>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { name: 'DIST 003', genre: 'Royal Bass', url: 'https://open.spotify.com/track/1EwUrVcbZ3GUHVX3hTbsCp' },
-              { name: 'DIST 002', genre: 'House', url: '#' },
-              { name: 'DIST 001', genre: 'Dubstep', url: '#' },
-            ].map((r, i) => (
-              <div
-                key={i}
-                className="rounded-3xl border border-white/10 bg-gradient-to-b from-white/6 to-white/[0.03] p-4 flex items-center gap-4"
-              >
-                <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-violet-500/30 to-fuchsia-500/20 border border-white/10" />
-                <div className="flex-1">
-                  <h4 className="text-lg font-semibold">{r.name}</h4>
-                  <span className="text-xs text-gray-300">{r.genre}</span>
-                </div>
-                <a
-                  href={r.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-white/20 px-4 py-2 text-sm hover:bg-white/10 transition-colors"
-                >
-                  Listen
-                </a>
               </div>
             ))}
           </div>

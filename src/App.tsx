@@ -236,7 +236,7 @@ function App() {
                 src="/mddvvm.jpg"
                 alt="MDDVVM pyramid mark in the dark"
               />
-              <div className="flex items-center gap-1 max-w-72 absolute bottom-8 left-8 bg-white p-4 rounded-xl">
+              <div className="flex items-center gap-1 max-w-72 absolute bottom-8 left-8 bg-black/70 border border-white/15 backdrop-blur-md p-4 rounded-xl">
                 <div className="flex -space-x-4 shrink-0">
                   <img
                     src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200"
@@ -257,7 +257,7 @@ function App() {
                     50+
                   </div>
                 </div>
-                <p className="text-sm font-medium text-slate-800">Clips, reposts and late‑night listeners</p>
+                <p className="text-sm font-medium text-slate-100">Clips, reposts and late‑night listeners</p>
               </div>
             </div>
             <div className="text-sm text-slate-200 max-w-lg">
@@ -496,7 +496,7 @@ function App() {
           </div>
 
           <div className="max-w-7xl mx-auto mt-12 pt-4 border-t border-neutral-700 flex justify-between items-center">
-            <p className="text-neutral-400 text-sm font-doto">© 2025 MDDVVM / DIST — concept project.</p>
+            <p className="text-neutral-400 text-sm font-doto">© 2026 MDDVVM / DIST — concept project.</p>
             <p className="text-sm text-neutral-400 font-doto">All rights reserved in our heads.</p>
           </div>
           <div className="relative">

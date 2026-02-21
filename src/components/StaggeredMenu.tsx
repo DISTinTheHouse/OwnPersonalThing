@@ -23,6 +23,7 @@ export interface StaggeredMenuProps {
   openMenuButtonColor?: string;
   accentColor?: string;
   isFixed: boolean;
+  fixedTopClassName?: string;
   changeMenuColorOnOpen?: boolean;
   closeOnClickAway?: boolean;
   onMenuOpen?: () => void;
@@ -43,6 +44,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   changeMenuColorOnOpen = true,
   accentColor = '#5227FF',
   isFixed = false,
+  fixedTopClassName = 'top-0',
   closeOnClickAway = true,
   onMenuOpen,
   onMenuClose
@@ -385,7 +387,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   return (
     <div
       className={`sm-scope z-40 ${
-        isFixed ? 'fixed inset-x-0 top-0 pointer-events-none' : 'w-full h-full'
+        isFixed ? `fixed inset-x-0 ${fixedTopClassName} pointer-events-none` : 'w-full h-full'
       }`}
     >
       <div

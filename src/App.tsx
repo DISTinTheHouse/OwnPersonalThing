@@ -49,6 +49,7 @@ function SectionWrapper({ id, className, children }: SectionWrapperProps) {
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,10 +61,12 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navTopClass = showBanner && !scrolled ? 'top-10' : 'top-0';
+
   return (
     <main className="w-full min-h-screen">
       <div
-        className={`fixed inset-x-0 top-0 z-30 h-16 md:h-20 transition-colors duration-300 pointer-events-none ${
+        className={`fixed inset-x-0 ${navTopClass} z-30 h-16 md:h-20 transition-colors duration-300 pointer-events-none ${
           scrolled ? 'bg-black/70 backdrop-blur-md border-b border-white/10' : 'bg-transparent border-b border-transparent'
         }`}
       />
@@ -91,7 +94,57 @@ function App() {
         logoUrl="/vite.svg"
         accentColor="#5227FF"
         isFixed={true}
+        fixedTopClassName={navTopClass}
       />
+      {showBanner && (
+        <div className="w-full bg-gradient-to-b from-orange-500 to-orange-600 text-white">
+          <div className="max-w-6xl mx-auto relative px-4 py-2 text-xs sm:text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <p className="font-doto font-medium text-center">
+                Hotest News | WorldStarHiphop + Jumper and more...
+              </p>
+              <a
+                href="https://prebuiltui.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 px-3 py-1 text-xs rounded-md text-orange-600 bg-white hover:bg-slate-200 transition active:scale-95"
+              >
+                Check it out
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.91797 7H11.0846"
+                    stroke="#F54900"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M7 2.9165L11.0833 6.99984L7 11.0832"
+                    stroke="#F54900"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowBanner(false)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded-full border border-white/40 bg-black/10 hover:bg-black/25 transition-colors h-7 w-7 text-[11px] font-medium"
+              aria-label="Close banner"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
       <section className="relative w-full min-h-screen overflow-hidden bg-black text-white flex items-center pt-24">
         <div className="absolute inset-0 w-full h-full">
           <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -175,19 +228,67 @@ function App() {
         </div>
       </SectionWrapper>
       <SectionWrapper id="about" className="py-28 md:py-32 bg-black text-white">
-        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
-            <h3 className="text-3xl md:text-4xl font-semibold font-bruno bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
-              About DIST
-            </h3>
-            <p className="text-gray-300">
-              DIST creates music for big systems and late nights. From Miami energy to global bass pressure.
-            </p>
-            <p className="text-gray-400">
-              The goal isn’t just streams — it’s presence: appearing on the same timelines as WorldStar, JUMPER, and the big bass channels.
-            </p>
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-10">
+            <div className="relative shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
+              <img
+                className="max-w-md w-full object-cover rounded-2xl"
+                src="/mddvvm.jpg"
+                alt="MDDVVM pyramid mark in the dark"
+              />
+              <div className="flex items-center gap-1 max-w-72 absolute bottom-8 left-8 bg-white p-4 rounded-xl">
+                <div className="flex -space-x-4 shrink-0">
+                  <img
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200"
+                    alt="Listener avatar 1"
+                    className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-[1]"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200"
+                    alt="Listener avatar 2"
+                    className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-[2]"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
+                    alt="Listener avatar 3"
+                    className="size-9 rounded-full border-[3px] border-white hover:-translate-y-1 transition z-[3]"
+                  />
+                  <div className="flex items-center justify-center text-xs text-white size-9 rounded-full border-[3px] border-white bg-indigo-600 hover:-translate-y-1 transition z-[4]">
+                    50+
+                  </div>
+                </div>
+                <p className="text-sm font-medium text-slate-800">Clips, reposts and late‑night listeners</p>
+              </div>
+            </div>
+            <div className="text-sm text-slate-200 max-w-lg">
+              <h3 className="text-xl uppercase font-semibold text-slate-100 font-bruno">About DIST</h3>
+              <div className="w-24 h-[3px] rounded-full bg-gradient-to-r from-indigo-500 to-[#DDD9FF]" />
+              <p className="mt-8 text-slate-200">
+                DIST is a bass‑driven project built for real systems: warehouse stacks, club rigs and the
+                headphones that stay on until 4AM.
+              </p>
+              <p className="mt-4 text-slate-300">
+                The sound lives where Miami energy, trap pressure and dubstep weight overlap — designed to sit
+                on the same feeds as WorldStar, JUMPER and the internet’s loudest channels.
+              </p>
+              <p className="mt-4 text-slate-400">
+                DIST is housed inside MDDVVM, a fictional imprint built to experiment with visuals, lore and
+                rollout ideas before they hit the real world.
+              </p>
+              <a
+                href="#contact"
+                className="flex items-center w-max gap-2 mt-8 hover:-translate-y-0.5 transition bg-gradient-to-r from-indigo-600 to-[#8A7DFF] py-3 px-8 rounded-full text-white text-xs sm:text-sm"
+              >
+                <span>Contact the project</span>
+                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12.53 6.53a.75.75 0 0 0 0-1.06L7.757.697a.75.75 0 1 0-1.06 1.06L10.939 6l-4.242 4.243a.75.75 0 0 0 1.06 1.06zM0 6v.75h12v-1.5H0z"
+                    fill="#fff"
+                  />
+                </svg>
+              </a>
+            </div>
           </div>
-          <div className="h-56 md:h-72 rounded-3xl border border-white/10 bg-gradient-to-br from-purple-600/20 to-blue-500/10" />
         </div>
       </SectionWrapper>
 

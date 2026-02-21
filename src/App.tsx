@@ -91,7 +91,7 @@ function App() {
         openMenuButtonColor="#000000"
         changeMenuColorOnOpen={true}
         colors={['#B19EEF', '#5227FF']}
-        logoUrl="/vite.svg"
+        logoUrl="/favicon-mddvvm-1.png"
         accentColor="#5227FF"
         isFixed={true}
         fixedTopClassName={navTopClass}

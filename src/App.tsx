@@ -104,9 +104,7 @@ function App() {
                 Hotest News | WorldStarHiphop + Jumper and more...
               </p>
               <a
-                href="https://prebuiltui.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#culture"
                 className="flex items-center gap-1 px-3 py-1 text-xs rounded-md text-orange-600 bg-white hover:bg-slate-200 transition active:scale-95"
               >
                 Check it out
@@ -232,7 +230,7 @@ function App() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-10">
             <div className="relative shadow-2xl shadow-indigo-600/40 rounded-2xl overflow-hidden shrink-0">
               <img
-                className="max-w-md w-full object-cover rounded-2xl"
+                className="w-full max-w-xl md:max-w-2xl object-cover rounded-2xl"
                 src="/mddvvm.jpg"
                 alt="MDDVVM pyramid mark in the dark"
               />

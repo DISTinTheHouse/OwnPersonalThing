@@ -61,7 +61,7 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navTopClass = showBanner && !scrolled ? 'top-10' : 'top-0';
+  const navTopClass = showBanner && !scrolled ? 'top-12' : 'top-0';
 
   return (
     <main className="w-full min-h-screen">
